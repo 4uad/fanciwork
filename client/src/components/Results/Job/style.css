@@ -1,0 +1,64 @@
+.job-header img {
+    width: 30px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.job-header, .job-header > .job-data {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.job-header > .job-data {
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.job-title {
+    width: 100%;
+    margin-right: 20px;
+}
+
+.job-tags {
+    padding-top: 10px;
+    padding-left: 45px;
+    display: block;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+.job-link .material-icons {
+    line-height: 32.4px;
+}
+
+.job-icon {
+    min-width: 30px;
+    margin-right: 15px;
+}
+
+.job-icon i {
+    margin: auto;
+}
+
+.job-body.visible {
+    display: inline-block;
+}
+
+.job-header .chip {
+    height: 20px;
+    line-height: 20px;
+    padding: 0 8px;
+    white-space: nowrap;
+}
+
+.job-company {
+    opacity: 0.5;
+}
+
+.job-desc {
+    opacity: 0.75;
+}

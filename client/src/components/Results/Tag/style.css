@@ -1,0 +1,31 @@
+.tag .material-icons {
+    font-size: 13px;
+    line-height: 20px;
+    vertical-align: middle;
+    width: 5px;
+    margin: 0 5px 0 7.5px;;
+    transition: transform 0.25s;
+    transform-origin: center center;
+}
+
+.tag .material-icons:first-child {
+    margin-left: 5px;
+}
+
+.tag .material-icons.like:hover, .tag .material-icons.like.active-tag {
+    color: #C13584;
+}
+
+.tag .material-icons.dislike:hover, .tag .material-icons.dislike.active-tag {
+    color: #FD1D1D;
+}
+
+.tag .material-icons:hover {
+    transform: scale(2) translateX(-1px);
+    cursor: pointer;
+}
+
+.tag {
+    position: relative;
+    z-index: 1;
+}

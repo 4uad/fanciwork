@@ -1,0 +1,9 @@
+.ac-wrapper * input, .ac-wrapper * i {
+    position: relative;
+    z-index: 1;
+}
+
+.ac-wrapper * ul {
+    position: absolute;
+    z-index: 2;
+}
