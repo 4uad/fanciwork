@@ -1,11 +1,24 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
+from flask_caching import Cache
 import requests
 import json
 
+cache = Cache(config={'CACHE_TYPE': 'simple', "CACHE_DEFAULT_TIMEOUT": 3600})
+
 app = Flask(__name__)
 CORS(app)
+cache.init_app(app)
 
+@cache.memoize()
+def fetch_jobs():
+    r = requests.get('https://remoteok.io/api')
+    jobs = json.loads(r.text)
+    jobs.pop(0)
+
+    return jobs
+
+@cache.memoize()
 def filter_and_order(jobs, filters):
     def countTags(job):
         if 'tags' not in job:
@@ -34,6 +47,7 @@ def filter_and_order(jobs, filters):
 
     return jobsWithMatches
 
+@cache.memoize()
 def get_unique_tags(jobs):
     tags = []
 
@@ -43,13 +57,11 @@ def get_unique_tags(jobs):
 
     return list(set(tags))
 
-@app.route('/', methods = ['POST'])
+@app.route('/fanciwork/api/', methods = ['POST'])
 @cross_origin()
 def get_ads():
     filters = request.get_json(force=True)
-    r = requests.get('https://remoteok.io/api')
-    jobs = json.loads(r.text)
-    jobs.pop(0)
+    jobs = fetch_jobs()
     
     processedJobs = filter_and_order(jobs, filters)
     unique_tags = get_unique_tags(processedJobs)
