@@ -11,6 +11,8 @@
     Front-end built in React, Redux Toolkit and MaterializeCSS. Tested with Enzyme.
     Back-end built in Flask.
   </p>
+
+  <h4><a target="_blank" rel="noopener noreferrer" href="http://ec2-54-82-195-104.compute-1.amazonaws.com">LIVE DEMO</a></h4>
 </p>
 
 <!-- TABLE OF CONTENTS 
