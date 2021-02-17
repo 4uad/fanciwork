@@ -37,10 +37,6 @@
     transform: translateY(-50%);
 }
 
-.no-matches .reset-btn {
-    bottom: 0;
-}
-
 button:hover {
     color:  #69F0AE !important;
 }
