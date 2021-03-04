@@ -64,8 +64,8 @@ def get_ads():
     jobs = fetch_jobs()
     
     processedJobs = filter_and_order(jobs, filters)
-    if filters['limit']:
-        processedJobs = processedJobs[:filters['limit']]
+    if 'max_length' in filters:
+        processedJobs = processedJobs[:filters['max_length']]
     
     unique_tags = get_unique_tags(processedJobs)
 
