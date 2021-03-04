@@ -64,6 +64,9 @@ def get_ads():
     jobs = fetch_jobs()
     
     processedJobs = filter_and_order(jobs, filters)
+    if filters['limit']:
+        processedJobs = processedJobs[:filters['limit']]
+    
     unique_tags = get_unique_tags(processedJobs)
 
     result = {'jobs': processedJobs, 'tags': unique_tags, 'no_matches': len(processedJobs) == 0}
