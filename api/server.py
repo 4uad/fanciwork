@@ -57,7 +57,7 @@ def get_unique_tags(jobs):
 
     return list(set(tags))
 
-@app.route('/fanciwork/api/', methods = ['POST'])
+@app.route('/api/', methods = ['POST'])
 @cross_origin()
 def get_ads():
     filters = request.get_json(force=True)
