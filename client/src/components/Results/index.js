@@ -12,7 +12,7 @@ import {
 import './style.css';
 import Job from './Job';
 import Tag from './Tag';
-import { Icon, Toast } from 'react-materialize';
+import { Icon, Toast, Pagination } from 'react-materialize';
 
 // A preloader spinner
 function Spinner() {
@@ -78,13 +78,13 @@ function Results() {
     updateAds([]); // Reset previous ads
     fetch("/fanciwork/api/", {
       method: 'POST',
-      body: JSON.stringify({with: likes, without: dislikes, max_length: 9})
+      body: JSON.stringify({with: likes, without: dislikes, max_length: 7})
     })
       .then(res => res.json())
       .then(
         (result) => {
           updateAds(result.jobs) // Update state with found jobs.
-          setMatches(!result.no_matches) // Update no matches status
+          setMatches(result.matches) // Update match count
 
           dispatch(addTags(result.tags)) // Update the global list of visible tags
         },
@@ -112,13 +112,13 @@ function Results() {
   // If there are any filters, display SHARE and RESET btns
   const reset = likes.length > 0 || dislikes.length > 0 ? <div className="reset-btn">
     <button className="waves-effect waves-teal btn-flat" onClick = {() => dispatch(resetFilters())}>Reset</button>
-    {matches && <span onClick={copyShareLink}><Toast onClick={copyShareLink} className="sharetoast" options={{ html: 'Link copied to clipboard!'}}><Icon>share</Icon></Toast></span>}
+    {matches > 0 && <span onClick={copyShareLink}><Toast onClick={copyShareLink} className="sharetoast" options={{ html: 'Link copied to clipboard!'}}><Icon>share</Icon></Toast></span>}
   </div> : ""
 
   // Box informing of the number of jobs found (or no matching jobs error message)
   var matches_info = <div className="matches-info no-matches" style={{backgroundImage: `url(${require('../../www/disappointed.png').default})`}}>No matching jobs{reset}</div>;
-  if(matches) {
-    matches_info = <div className="matches-info">{ads.length} matching jobs found on <a href="https://remoteok.io/" target="_blank" rel="noreferrer">remoteOK</a>{reset}</div>;
+  if(matches > 0) {
+    matches_info = <div className="matches-info">{matches} matching jobs found on <a href="https://remoteok.io/" target="_blank" rel="noreferrer">remoteOK</a>{reset}</div>;
   }
 
   // Create a tag element for each filter applied
@@ -133,6 +133,15 @@ function Results() {
         {ads.length > 0 || !matches ? matches_info : ""}
       </ul>
       {matches ? <ul className="collapsible">{jobs}</ul> : ""}
+      <div className="pagination-wrapper">
+        <Pagination
+          activePage={1}
+          items={10}
+          leftBtn={<Icon>chevron_left</Icon>}
+          maxButtons={8}
+          rightBtn={<Icon>chevron_right</Icon>}
+        />
+      </div>
     </div>
   );
 }

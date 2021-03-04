@@ -64,12 +64,13 @@ def get_ads():
     jobs = fetch_jobs()
     
     processedJobs = filter_and_order(jobs, filters)
+    matches = len(processedJobs)
     if 'max_length' in filters:
         processedJobs = processedJobs[:filters['max_length']]
     
     unique_tags = get_unique_tags(processedJobs)
 
-    result = {'jobs': processedJobs, 'tags': unique_tags, 'no_matches': len(processedJobs) == 0}
+    result = {'jobs': processedJobs, 'tags': unique_tags, 'matches': matches}
 
     return jsonify(result)
 

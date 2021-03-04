@@ -4,7 +4,9 @@
 }
 
 .results {
-    overflow-y: auto;
+    position: relative;
+    overflow: hidden auto;
+    padding-bottom: 70px;
 }
 
 .tags {
@@ -39,6 +41,18 @@
 
 button:hover {
     color:  #69F0AE !important;
+}
+
+.pagination li.active {
+    background-color: #69F0AE;
+}
+
+.pagination-wrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .sharetoast {
