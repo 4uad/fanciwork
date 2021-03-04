@@ -43,5 +43,5 @@
     "jest-enzyme": "^7.1.2",
     "prop-types": "^15.7.2"
   },
-  "proxy": "http://54.82.195.104/api/"
+  "proxy": "http://54.82.195.104/"
 }
