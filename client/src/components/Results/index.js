@@ -78,7 +78,7 @@ function Results() {
     updateAds([]); // Reset previous ads
     fetch("/fanciwork/api/", {
       method: 'POST',
-      body: JSON.stringify({with: likes, without: dislikes})
+      body: JSON.stringify({with: likes, without: dislikes, max_length: 9})
     })
       .then(res => res.json())
       .then(

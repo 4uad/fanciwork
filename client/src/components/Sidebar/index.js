@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import './style.css';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -14,6 +14,8 @@ import TagInput from './TagInput';
 import Tag from '../Results/Tag';
 import PropTypes from 'prop-types';
 
+const COLLAPSE_DURATION = 1000;
+
 function Sidebar(props) {
   // Redux
   const collapsed = useSelector(selectCollapse); // Should this sidebar be collapsed?
@@ -22,17 +24,37 @@ function Sidebar(props) {
   const dislikes = useSelector(selectDislikes); // Array of disliked tags
   const dispatch = useDispatch();
 
+  // State
+  const [collapse, setCollapse] = useState(false);
+  const [collapsing, setCollapsing] = useState(false);
+
   const _ = require('lodash');
 
   const likedTags = likes.map((t, i) => <Tag key = {`tag${i}`}>{t}</Tag>)
   const dislikedTags = dislikes.map((t, i) => <Tag key = {`tag${i + likes.length + 1}`}>{t}</Tag>)
 
+  const toggleCollapse = () => {
+    if(!collapsing) {
+      dispatch(toggle());
+
+      if(collapse) {
+        setCollapse(false);
+      } else {
+        setCollapsing(true);
+        setTimeout(() => {
+          setCollapse(true);
+          setCollapsing(false);
+        }, COLLAPSE_DURATION);
+      }
+    }
+  } 
+
   return (
     <>
         <div className = {"aside-placeholder" + (collapsed ? " aside-collapsed" : "")} />
         <aside className={collapsed ? "z-depth-1 aside-collapsed" : "z-depth-2"} data-test = "sidebar">
-            <button onClick={() => dispatch(toggle())} className="aside-collapse-btn btn-floating btn-small waves-effect waves-light green accent-2"><i className="material-icons black-text">keyboard_arrow_left</i></button>
-            <div className = "logo" style={{backgroundImage: `url(${require('../../www/fanciwork-logo.png').default})`}} />
+            <button onClick={toggleCollapse} className="aside-collapse-btn btn-floating btn-small waves-effect waves-light green accent-2"><i className="material-icons black-text">keyboard_arrow_left</i></button>
+            {!collapse && <><div className = "logo" style={{backgroundImage: `url(${require('../../www/fanciwork-logo.png').default})`}} />
             <div className="aside-inputs">
               <TagInput type = "favorite" placeholders = {tags ? [props.ph[0]].concat(_.range(3).map(() => _.sample(tags))) : [props.ph[0]]}>
                 {likedTags}
@@ -40,7 +62,7 @@ function Sidebar(props) {
               <TagInput type = "not_interested" placeholders = {tags ? [props.ph[1]].concat(_.range(3).map(() => _.sample(tags))) : [props.ph[1]]}>
                 {dislikedTags}
               </TagInput>
-            </div>
+            </div></>}
             <div className="background-container" style={{backgroundImage:`url(${require('../../www/crayons.png').default})`}}></div>
         </aside>
     </>
