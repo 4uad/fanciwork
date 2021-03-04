@@ -103,7 +103,7 @@ function Results() {
   // Fetch from API, passing the liked and disliked tags.
   useEffect(() => {
     updateAds([]); // Reset previous ads
-    fetch("/fanciwork/api/", {
+    fetch("/", {
       method: 'POST',
       body: JSON.stringify({with: likes, without: dislikes})
     })
