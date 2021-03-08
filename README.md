@@ -12,7 +12,7 @@
     Back-end built in Flask.
   </p>
 
-  <h4 align="center"><a target="_blank" rel="noopener noreferrer" href="http://ec2-54-82-195-104.compute-1.amazonaws.com">LIVE DEMO</a></h4>
+  <h4 align="center"><a target="_blank" rel="noopener noreferrer" href="http://diegomart.in/fanciwork">LIVE DEMO</a></h4>
 </p>
 
 <!-- TABLE OF CONTENTS 
