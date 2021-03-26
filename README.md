@@ -11,8 +11,6 @@
     Front-end built in React, Redux Toolkit and MaterializeCSS. Tested with Enzyme.
     Back-end built in Flask.
   </p>
-
-  <h4 align="center"><a target="_blank" rel="noopener noreferrer" href="http://diegomart.in/fanciwork">LIVE DEMO</a></h4>
 </p>
 
 <!-- TABLE OF CONTENTS 
